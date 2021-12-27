@@ -1,4 +1,11 @@
 {% extends 'base.html' %} {% block content %}
 <h1>hello world!!!</h1>
 <br />
-{{api}} {% endblock %}
+API full data: {{api}} <br />
+<br />
+Air quality:{{api.0.AQI}} <br />
+<!--request of the AQI value of the API dictionary -->
+Area: {{api.0.ReportingArea}}<br />
+Category:{{api.0.Category.Name}}<br />
+
+{% endblock %}
