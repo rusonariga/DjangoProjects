@@ -1,11 +1,12 @@
 {% extends 'base.html' %} {% block content %}
-<h1>hello world!!!</h1>
+<h1>Here is the requested data</h1>
 <br />
-API full data: {{api}} <br />
+{% if api %} {% if api == "Error loading API data from website"%} There was an
+error requesting the data, please try later {% else %} API full data: {{api}}
+<br />
 <br />
 Air quality:{{api.0.AQI}} <br />
 <!--request of the AQI value of the API dictionary -->
 Area: {{api.0.ReportingArea}}<br />
 Category:{{api.0.Category.Name}}<br />
-
-{% endblock %}
+{% endif %} {% endif %} {% endblock %}
