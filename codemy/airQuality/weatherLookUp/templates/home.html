@@ -1,0 +1,23 @@
+{% extends 'base.html' %} {% block content %}
+
+<br />
+
+{% if zipCode %} 
+{{ zipCode }} 
+{% endif %} 
+
+{% if api %}
+  {% if api == "Error loading API data from website" %} 
+    There was an error requesting the data, pleasetry later 
+  {% else %}
+  <div class="jumbotron {{category_color}}">
+    <h1 class="display-4">Air quality: {{api.0.Category.Name}}</h1>
+    <p class="lead">
+      Selected place: {{api.0.ReportingArea}} - Air quality value: {{api.0.AQI}}
+    </p>
+    <p>{{category_description}}</p>
+  </div>
+  API full data: {{api}} 
+  {% endif %} 
+  {% endif %} 
+  {% endblock %}
