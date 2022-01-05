@@ -4,6 +4,15 @@
 
 
 <h1>going rich?</h1>
+{% if api %}
+{% if api == "Error"%}
+There is a problem with the tiker symbols
+{% else %}
+{% for key, value in api.items %}
+{{key}}: {{value}} </br>
+{% endfor %}
+{% endif %}
 
+{% endif %}
 
 {% endblock %}
