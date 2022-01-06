@@ -4,13 +4,25 @@
 
 
 <h1>going rich?</h1>
+
+{% if ticker %}
+{{ticker}}
+{% endif %}
+
 {% if api %}
 {% if api == "Error"%}
 There is a problem with the tiker symbols
 {% else %}
-{% for key, value in api.items %}
+<h1>{{api.companyName}}</h1></br>
+<h1>Price: $ {{api.latestPrice}}</h1></br>
+<h1>Previous Close: ${{api.previuosClose}}</h1></br>
+<h1>Market Cap: ${{api.marketCap}}</h1></br>
+<h1>YTD Change: {{api.ytdChange}}</h1></br>
+<h1>Week 52 High: {{api.week52High}}</h1></br>
+<h1>Week 52 Low: {{api.week52Low}}</h1></br>
+<!-- {% for key, value in api.items %}
 {{key}}: {{value}} </br>
-{% endfor %}
+{% endfor %} -->
 {% endif %}
 
 {% endif %}
