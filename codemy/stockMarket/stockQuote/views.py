@@ -19,8 +19,10 @@ def home(request):
 
         try:
             api = json.loads(api_request.content)
+            messages.success(request, ("Successfully loaded"))
         except Exception as e:
             api = "Error"
+            messages.error(request, ("Not found, check the ticket input"))
 
         return render(request, 'home.html', {'api': api})
 
