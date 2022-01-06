@@ -1,4 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import redirect, render
+from .models import stock
+from django.contrib import messages
+from .forms import stockForm
 
 
 def home(request):
@@ -6,7 +9,7 @@ def home(request):
     import json
 
     if request.method == 'POST':
-        ticker = request.POST["ticker"]
+        ticker = request.POST['ticker_input']
         api_request = requests.get(
             "https://cloud.iexapis.com/stable/stock/" + ticker + "/quote?token=pk_9c23b434f75d428eb7753d06ca042844")
 
@@ -23,3 +26,21 @@ def home(request):
 
 def about(request):
     return render(request, 'about.html', {})
+
+
+def add_stock(request):
+
+    if request.method == 'POST':
+
+        form = stockForm(request.POST or None)
+
+        if form.is_valid():
+            form.save()
+            messages.success(
+                request, ("stock has been added to your portfolio"))
+            return redirect('add_stock')
+        # else:
+
+    else:
+        ticker = stock.objects.all()
+        return render(request, 'add_stock.html', {'ticker': ticker})
