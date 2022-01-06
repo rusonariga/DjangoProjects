@@ -12,7 +12,7 @@
 </form></br>
 
 {% for item in ticker %}
-{{item}}</br>
+{{item}} - <a href="{% url 'delete_stock' item.id %}">Delete stock</a></br>
 {% endfor %}
 
 {% endblock %}

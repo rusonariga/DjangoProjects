@@ -2,6 +2,10 @@ from django.shortcuts import redirect, render
 from .models import stock
 from django.contrib import messages
 from .forms import stockForm
+"""
+duda 1: una vez que ya cree una columna en la base de datos, como la elimino o modifico el tag
+2: como hacer para cambiar en el add stock de ticker a ticker_add
+3: de donde le esta pasando el stock_id? desde el html?"""
 
 
 def home(request):
@@ -44,3 +48,10 @@ def add_stock(request):
     else:
         ticker = stock.objects.all()
         return render(request, 'add_stock.html', {'ticker': ticker})
+
+
+def delete_stock(request, stock_id):
+    item = stock.objects.get(pk=stock_id)
+    item.delete()
+    messages.success(request, ("Stock has been deleted"))
+    return redirect(add_stock)
