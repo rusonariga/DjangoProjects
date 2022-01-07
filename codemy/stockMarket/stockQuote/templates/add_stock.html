@@ -9,10 +9,56 @@
     <input class="form-control mr-sm-2" type="search" placeholder="Add ticker to portfolio" aria-label="Search"
         name="ticker">
     <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Stock Search</button>
-</form></br>
+</form></br></br>
+
+<table class="table table-striped table-bordered table-hover">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">Company Name</th>
+        <th scope="col">Price</th>
+        <th scope="col">Previous Close</th>
+        <th scope="col">Market Cap</th>
+        <th scope="col">YTD Change</th>
+        <th scope="col">Week 52 High</th>
+        <th scope="col">Week 52 Low</th>
+        <th scope="col">Delete stock</th>
+      </tr>
+    </thead>
+    <tbody>
+        {% if ticker %}         
+                {% for list_item in api_output %}
+                    <tr>
+                        <th scope="row">{{ list_item.companyName }}</th>
+                        <td>${{ list_item.latestPrice }}</td>
+                        <td>${{ list_item.previousClose }}</td>
+                        <td>${{ list_item.marketCap }}</td>
+                        <td>{{ list_item.ytdChange }}%</td>
+                        <td>${{ list_item.week52High }}</td>
+                        <td>${{ list_item.week52Low }}</td>
+                        <td><a href="/">Delete stock</a></td>
+                    </tr>
+            {% endfor %}
+
+        {% endif %}
+    </tbody>
+  </table>
 
 {% for item in ticker %}
 {{item}} - <a href="{% url 'delete_stock' item.id %}">Delete stock</a></br>
 {% endfor %}
+
+</br></br>
+{% for list_item in api_output %}
+    {{ list_item.companyName }}</br>
+    {{ list_item.latestPrice }}</br>
+    {{ list_item.previousClose }}</br>
+    {{ list_item.marketCap }}</br>
+    {{ list_item.ytdChange }}</br>
+    {{ list_item.week52High }}</br>
+    {{ list_item.week52Low }}</br></br>
+
+{% endfor %}
+
+
 
 {% endblock %}

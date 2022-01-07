@@ -35,6 +35,8 @@ def about(request):
 
 
 def add_stock(request):
+    import requests
+    import json
 
     if request.method == 'POST':
 
@@ -49,7 +51,19 @@ def add_stock(request):
 
     else:
         ticker = stock.objects.all()
-        return render(request, 'add_stock.html', {'ticker': ticker})
+        api_output = []
+
+        for ticker_item in ticker:
+            api_request = requests.get("https://cloud.iexapis.com/stable/stock/" + str(ticker_item) + "/quote?token=pk_9c23b434f75d428eb7753d06ca042844")
+            try:
+                api = json.loads(api_request.content)
+                api_output.append(api)
+                messages.success(request, ("Successfully loaded"))
+            except Exception as e:
+                api = "Error"
+                messages.error(request, ("Not found, check the ticket input"))
+
+        return render(request, 'add_stock.html', {'ticker': ticker,'api_output':api_output})
 
 
 def delete_stock(request, stock_id):
