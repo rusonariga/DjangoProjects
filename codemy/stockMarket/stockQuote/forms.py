@@ -1,8 +1,8 @@
 from django import forms
-from .models import stock
+from .models import Stock
 
 
-class stockForm(forms.ModelForm):
+class StockForm(forms.ModelForm):
     class Meta:
-        model = stock
+        model = Stock
         fields = ['ticker']

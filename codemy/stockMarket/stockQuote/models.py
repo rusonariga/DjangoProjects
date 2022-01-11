@@ -1,8 +1,8 @@
 from django.db import models
 
 
-class stock(models.Model):
-    ticker = models.CharField(max_length=10)
+class Stock(models.Model):
+    ticker = models.CharField(max_length=10, blank=False)
 
     def __str__(self):
         return self.ticker

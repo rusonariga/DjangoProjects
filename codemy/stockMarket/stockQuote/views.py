@@ -1,7 +1,9 @@
 from django.shortcuts import redirect, render
-from .models import stock
+from .models import Stock
 from django.contrib import messages
-from .forms import stockForm
+from .forms import StockForm
+from django.http import JsonResponse
+
 """
 1: una vez que ya cree una columna en la base de datos, como la elimino o modifico el tag
 2: como hacer para cambiar en el add stock de ticker a ticker_add
@@ -44,17 +46,17 @@ def add_stock(request):
 
     if request.method == 'POST':
 
-        form = stockForm(request.POST or None)
+        form = StockForm(request.POST or None)
 
         if form.is_valid():
             form.save()
             messages.success(
                 request, ("stock has been added to your portfolio"))
-            return redirect('add_stock')
-        # else:
+
+        return redirect('add_stock')
 
     else:
-        ticker = stock.objects.all()
+        ticker = Stock.objects.all()
         api_output = []
 
         for ticker_item in ticker:
@@ -64,7 +66,7 @@ def add_stock(request):
                 api = json.loads(api_request.content)
                 api.update({'tickerID': ticker_item.id})
                 api_output.append(api)
-                messages.success(request, ("Successfully loaded"))
+                messages.success(request, ("Database Successfully loaded"))
             except Exception as e:
                 api = "Error"
                 messages.error(request, ("Not found, check the ticket input"))
@@ -73,19 +75,19 @@ def add_stock(request):
 
 
 def delete_stock(request, stock_id):
-    item = stock.objects.get(pk=stock_id)
+    item = Stock.objects.get(pk=stock_id)
     item.delete()
     messages.success(request, ("Stock has been deleted"))
     return redirect(add_stock)
 
 
 def remove_stock(request):
-    ticker = stock.objects.all()
+    ticker = Stock.objects.all()
     return render(request, 'remove_stock.html', {'ticker': ticker})
 
 
 def delete_stock2(request, stock_id):
-    item = stock.objects.get(pk=stock_id)
+    item = Stock.objects.get(pk=stock_id)
     item.delete()
     messages.success(request, ("Stock has been deleted"))
     return redirect(remove_stock)
