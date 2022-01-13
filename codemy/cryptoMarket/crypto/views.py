@@ -5,8 +5,14 @@ def home(request):
     import requests
     import json
 
-    api_request = requests.get(
-        "https://min-api.cryptocompare.com/data/v2/news/?lang=EN")
-    api = json.loads(api_request.content)
+    # Crypto data
+    price_request = requests.get(
+        "https://min-api.cryptocompare.com/data/pricemultifull?fsyms=BTC,ETC,XRP,BCH,EOS,LTC,XLM,ADA,USDT,MIOTA,TRX&tsyms=USD")
+    price = json.loads(price_request.content)
 
-    return render(request, 'home.html', {'api': api})
+    # Crypto news
+    news_request = requests.get(
+        "https://min-api.cryptocompare.com/data/v2/news/?lang=EN")
+    news = json.loads(news_request.content)
+
+    return render(request, 'home.html', {'news': news, 'price': price})
