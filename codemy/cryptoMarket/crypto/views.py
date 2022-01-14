@@ -16,3 +16,20 @@ def home(request):
     news = json.loads(news_request.content)
 
     return render(request, 'home.html', {'news': news, 'price': price})
+
+
+def prices(request):
+    import requests
+    import json
+    if request.method == 'POST':
+        # name into the request should be the same that input was called at html
+        quote = request.POST['quote']
+        quote = quote.upper()
+        crypto_request = requests.get(
+            "https://min-api.cryptocompare.com/data/pricemultifull?fsyms=" + quote + "&tsyms=USD")
+        crypto = json.loads(crypto_request.content)
+
+        return render(request, 'prices.html', {'quote': quote, 'crypto': crypto})
+
+    else:
+        return render(request, 'prices.html', {})
