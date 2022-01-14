@@ -2,6 +2,14 @@
 
 {% block content %}
 
+{% if quote_empty %}
+<h3>{{quote_empty}}</h3>
+
+{% else %}
+{% if crypto.Response %}
+<h3>Sorry, {{quote}} is not a valid symbol.</br>Please enter a valid crypto currency symbol</h3>
+{% endif %}
+
 {% for key,value in crypto.DISPLAY.items %}
 <div class="jumbotron">
     <h1 class="display-4">{{key}}</h1>
@@ -12,9 +20,10 @@
     <strong>MarketCap:</strong>{{value.USD.MKTCAP}}</br>
 </div>
 </br></br>
-
-
 {% endfor %}
+
+{% endif %}
+
 <hr></br>
 
 <!-- {{crypto}} -->

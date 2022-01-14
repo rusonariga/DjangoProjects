@@ -32,4 +32,5 @@ def prices(request):
         return render(request, 'prices.html', {'quote': quote, 'crypto': crypto})
 
     else:
-        return render(request, 'prices.html', {})
+        quote_empty = "Please enter a crypto currency symbol into the upper right form"
+        return render(request, 'prices.html', {'quote_empty': quote_empty})
