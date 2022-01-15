@@ -4,7 +4,7 @@ from .forms import ListForm
 from django.contrib import messages
 from django.http import HttpResponseRedirect
 """
-checkear que pasa cuando el casillero esta vacio y el fomr e sinvalido
+
 """
 
 
@@ -49,3 +49,20 @@ def item_change_status(request, list_id):
     item.save()
     messages.success(request, ('Item status has been changed'))
     return redirect('home')
+
+
+def item_edit(request, list_id):
+    if request.method == 'POST':
+        task = List.objects.get(pk=list_id)
+        form = ListForm(request.POST or None, instance=task)
+
+        if form.is_valid() and request.POST['item'] != '':
+            form.save()
+            task_all = List.objects.all
+            messages.success(request, ('The task \'{}\' has been edited on   the List'.format(
+                request.POST['item'])))
+            return redirect('home')
+
+    else:
+        task = List.objects.get(pk=list_id)
+        return render(request, 'edit.html', {'task': task})

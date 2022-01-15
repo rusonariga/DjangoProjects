@@ -31,6 +31,7 @@
         <tr>
             <th scope="col">Task</th>
             <th scope="col">Status</th>
+            <th scope="col">Edit</th>
             <th scope="col">Delete</th>
         </tr>
     </thead>
@@ -43,12 +44,14 @@
             <td class="striker">{{task.item}}</td>
             <!-- strikethrough hard way using del -->
             <td><a href="{% url 'change_status' task.id %}"><del>Done!</del></a></td>
+            <td><a href="{% url 'edit' task.id %}"> Edit</a></td>
             <td><a href="{% url 'delete' task.id %}"> Delete</a></td>
         </tr>
         {% else %}
         <tr class="table-warning">
             <td>{{task.item}}</td>
             <td><a href="{% url 'change_status' task.id %}">To do</a></td>
+            <td><a href="{% url 'edit' task.id %}"> Edit</a></td>
             <td><a href="{% url 'delete' task.id %}"> Delete</a></td>
         </tr>
         {% endif %}
