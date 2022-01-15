@@ -3,6 +3,39 @@
 {% block title %} To - Do List {% endblock %}
 
 {% block content %}
-<h1>home page</h1>
+
+{% if task_all %}
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">Task</th>
+            <th scope="col">Status</th>
+            <th scope="col">Delete</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for task in task_all %}
+
+        {% if task.completed%}
+        <tr class="table-success">
+            <!-- strikethrough hard way defining css file -->
+            <td class="striker">{{task.item}}</td>
+            <!-- strikethrough hard way using del -->
+            <td><del>Done!</del></td>
+            <td>Delete</td>
+        </tr>
+        {% else %}
+        <tr class="table-warning">
+            <td>{{task.item}}</td>
+            <td>To do</td>
+            <td>Delete</td>
+        </tr>
+        {% endif %}
+        {% endfor %}
+    </tbody>
+</table>
+
+
+{% endif %}
 
 {% endblock %}

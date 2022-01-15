@@ -1,8 +1,10 @@
 from django.shortcuts import render
+from .models import List
 
 
 def home(request):
-    return render(request, 'home.html', {})
+    task_all = List.objects.all
+    return render(request, 'home.html', {'task_all': task_all})
 
 
 def about(request):
