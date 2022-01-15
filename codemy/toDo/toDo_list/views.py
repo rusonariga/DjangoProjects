@@ -6,4 +6,5 @@ def home(request):
 
 
 def about(request):
-    return render(request, 'about.html', {})
+    full_name = {'first_name': 'Kid', 'last_name': 'Rock'}
+    return render(request, 'about.html', full_name)
