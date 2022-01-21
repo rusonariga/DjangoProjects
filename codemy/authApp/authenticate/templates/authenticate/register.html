@@ -9,7 +9,15 @@
     <form method="POST" action="{% url 'user_registration' %}">
         {% csrf_token %}
         {% if form_registration.errors %}
-        <p>There is an error at the form, please check the input</p>
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">Please check following errors:
+            {% for field in form_registration %}
+            {% if field.errors %}
+            {{field.errors}}
+            {% endif %}
+            {% endfor %}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </button>
+        </div>
         {% endif %}
 
         {{form_registration.as_p}}
@@ -19,4 +27,8 @@
 
     </form>
 </div>
+
+
+
+
 {% endblock %}

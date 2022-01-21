@@ -44,6 +44,9 @@ def user_registration(request):
             login(request, user)
             messages.success(request, ("Succesfully signed up"))
             return redirect('home')
+        else:
+            messages.error(
+                request, ("Error in the form - please check your inputs"))
 
     else:
         # form_registration = UserCreationForm()
