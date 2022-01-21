@@ -1,0 +1,22 @@
+{% extends 'authenticate/base.html' %}
+
+{% block title %} Registration process {% endblock %}
+
+{% block content %}
+<h1 class="text-center">Registration</h1>
+
+<div class="col-md-6 offset-md-3">
+    <form method="POST" action="{% url 'user_registration' %}">
+        {% csrf_token %}
+        {% if form_registration.errors %}
+        <p>There is an error at the form, please check the input</p>
+        {% endif %}
+
+        {{form_registration.as_p}}
+
+        </br>
+        <button type="submit" class="btn btn-primary col-md-4 offset-md-4" value="Register">Submit</button>
+
+    </form>
+</div>
+{% endblock %}
