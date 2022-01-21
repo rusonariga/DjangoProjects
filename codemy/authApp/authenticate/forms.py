@@ -1,4 +1,4 @@
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from django import forms
 from django.contrib.auth.models import User
 
@@ -34,3 +34,14 @@ class SignUpForm(UserCreationForm):
         self.fields['password2'].widget.attrs['placeholder'] = 'Repeat Password'
         self.fields['password2'].label = ''
         self.fields['password2'].help_text = '<span class="form-text text-muted"><small>Enter the same password as before, for verification.</small></span>'
+
+
+class EditProfileForm(UserChangeForm):
+
+    class Meta:
+        model = User
+        # exclude = []
+        fields = ['username', 'first_name', 'last_name', 'email']
+
+    password = forms.CharField(label='', widget=forms.TextInput(
+        attrs={'type': 'hidden'}))
