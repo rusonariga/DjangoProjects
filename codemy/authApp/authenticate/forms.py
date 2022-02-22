@@ -41,7 +41,7 @@ class EditProfileForm(UserChangeForm):
     class Meta:
         model = User
         # exclude = []
-        fields = ['username', 'first_name', 'last_name', 'email']
+        fields = ['username', 'first_name', 'last_name', 'email', 'password', ]
 
     password = forms.CharField(label='', widget=forms.TextInput(
         attrs={'type': 'hidden'}))
